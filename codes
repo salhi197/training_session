@@ -1,14 +1,18 @@
-$images = $request->file('images');
-
 if (!empty($images) && is_array($images)) {
     foreach ($images as $image) {
-        // Store the image and get the path
-        $filePath = $image->store($uploadDir, 'public');
+        // Manually validate the file extension
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $extension = strtolower($image->getClientOriginalExtension());
 
-        // Save the file path and associate it with the 'membre_id'
-        Fichier::create([
-            'file_path' => $filePath,
-            'membre_id' => $membreId, // Associate file with the member
-        ]);
+        if (in_array($extension, $allowedExtensions)) {
+            // Store the image and get the path
+            $filePath = $image->store($uploadDir, 'public');
+
+            // Save the file path and associate it with the 'membre_id'
+            Fichier::create([
+                'file_path' => $filePath,
+                'membre_id' => $membreId, // Associate file with the member
+            ]);
+        }
     }
 }
