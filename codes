@@ -1,14 +1,14 @@
-$('#uploadForm').on('submit', function (event) {
-    event.preventDefault(); // Prevent the default form submission
+$images = $request->file('images');
 
-    // Create a new FormData object
-    let formData = new FormData(this);
+if (!empty($images) && is_array($images)) {
+    foreach ($images as $image) {
+        // Store the image and get the path
+        $filePath = $image->store($uploadDir, 'public');
 
-    // Append images manually
-    filesArray.forEach((file) => {
-        formData.append('images[]', file);
-    });
-
-    // Submit the form naturally
-    this.submit();
-});
+        // Save the file path and associate it with the 'membre_id'
+        Fichier::create([
+            'file_path' => $filePath,
+            'membre_id' => $membreId, // Associate file with the member
+        ]);
+    }
+}
