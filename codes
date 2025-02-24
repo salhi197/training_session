@@ -1,0 +1,4 @@
+                <div class="preview-item" style="display: inline-block; position: relative; margin: 10px;">
+                    <img src="${URL.createObjectURL(file)}" alt="${file.name}" style="width: 100px; height: 100px; object-fit: cover; border: 1px solid #ccc; border-radius: 5px;">
+                    <button type="button" class="remove-btn" style="position: absolute; top: 0; right: 0; background: red; color: white; border: none; border-radius: 50%; width: 20px; height: 20px;">&times;</button>
+                </div>
